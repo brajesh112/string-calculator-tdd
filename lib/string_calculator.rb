@@ -9,6 +9,13 @@ class StringCalculator
       delimiter = ",|\n"
     end
     
-    numbers.split(/#{delimiter}/).map(&:to_i).sum
+    parsed_numbers = numbers.split(/#{delimiter}/).map(&:to_i)
+    negatives = parsed_numbers.select(&:negative?)
+    
+    if negatives.any?
+      raise StandardError, "Negatives not allowed: #{negatives.join(', ')}"
+    end
+    
+    parsed_numbers.sum
   end
 end
