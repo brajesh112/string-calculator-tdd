@@ -4,11 +4,9 @@ class StringCalculator
     
     if numbers.start_with?("//")
       delimiter_spec, numbers = numbers[2..].split("\n", 2)
-      delimiter = if delimiter_spec.include?("[")
-        delimiter_spec.scan(/\[([^\]]+)\]/).map(&:first).map { |d| Regexp.escape(d) }.join("|")
-      else
+      delimiter = delimiter_spec.include?("[") ?
+        delimiter_spec.scan(/\[([^\]]+)\]/).map { |(d)| Regexp.escape(d) }.join("|") :
         Regexp.escape(delimiter_spec)
-      end
     else
       delimiter = ",|\n"
     end
