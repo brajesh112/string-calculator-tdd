@@ -12,10 +12,8 @@ class StringCalculator
     parsed_numbers = numbers.split(/#{delimiter}/).map(&:to_i)
     negatives = parsed_numbers.select(&:negative?)
     
-    if negatives.any?
-      raise StandardError, "Negatives not allowed: #{negatives.join(', ')}"
-    end
+    raise StandardError, "Negatives not allowed: #{negatives.join(', ')}" if negatives.any?
     
-    parsed_numbers.sum
+    parsed_numbers.reject { |n| n > 1000 }.sum
   end
 end
